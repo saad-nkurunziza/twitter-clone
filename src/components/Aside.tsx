@@ -12,7 +12,7 @@ const Aside = () => {
         <AsideBox>
           <div className="flex flex-col gap-1">
             <h2 className="text-xl font-semibold ">Get Verified</h2>
-            <h4 className="textlg font-medium">
+            <h4 className="text-lg font-medium">
               Subscribe to unlock new features.
             </h4>
             <div className="w-fit">

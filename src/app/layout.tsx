@@ -17,17 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <Provider>
         <body className=" bg-dimBg dark:text-white flex">
-          <NavCol />
-          <main className="flex-grow ml-[350px]">
-            <section className="">
-              <article className="flex">
-                {children}
-                <article className="flex-grow">
-                  <Aside />
-                </article>
-              </article>
-            </section>
-          </main>
+          <main>{children}</main>
         </body>
       </Provider>
     </html>

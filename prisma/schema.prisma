@@ -12,6 +12,7 @@ model User {
   name      String?
   email     String    @unique
   image     String?
+  password  String
   tweets    Tweet[]
   comments  Comment[]
   createdAt DateTime  @default(now())
@@ -23,7 +24,7 @@ model Tweet {
   body      String
   User      User?     @relation(fields: [userId], references: [email])
   userId    String?
-  image String?
+  image     String?
   likes     String[]
   comments  Comment[]
   createdAt DateTime  @default(now())
