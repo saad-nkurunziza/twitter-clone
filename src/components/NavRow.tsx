@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { HomeLinks } from "@/constants";
 
 const NavRow = () => {
-  const [view, setView] = useState<"for_you" | "following">("for_you")
+  const [view, setView] = useState<"for_you" | "following">("for_you");
   return (
     <section className="w-full">
       <article className="flex border-b border-light">

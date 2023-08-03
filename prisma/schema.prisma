@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,10 +7,35 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id        String    @id @default(cuid())
+  name      String?
+  email     String    @unique
+  image     String?
+  tweets    Tweet[]
+  comments  Comment[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
 model Tweet {
+  id        String    @id @default(cuid())
+  body      String
+  User      User?     @relation(fields: [userId], references: [email])
+  userId    String?
+  image String?
+  likes     String[]
+  comments  Comment[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Comment {
   id        String   @id @default(cuid())
   body      String
-  image     String?
-  updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
+  Tweet     Tweet?   @relation(fields: [tweetId], references: [id])
+  tweetId   String?
+  User      User?    @relation(fields: [userId], references: [email])
+  userId    String?
 }

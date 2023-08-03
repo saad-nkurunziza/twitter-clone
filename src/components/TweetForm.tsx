@@ -3,7 +3,10 @@ import React, { useState } from "react";
 import { AiOutlinePicture } from "react-icons/ai";
 import Button from "./Button";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 const TweetForm = () => {
+  const { data: session } = useSession();
+  const userId = session?.user?.email;
   const [body, setBody] = useState("");
   const [image, setImage] = useState<File | null>(null);
   const [preview, setPreview] = useState("");
@@ -13,6 +16,7 @@ const TweetForm = () => {
     const formData = new FormData();
     formData.append("body", body);
     formData.append("image", image!);
+    formData.append("userId", userId!);
 
     try {
       const response = await fetch("/api/tweet", {
@@ -44,8 +48,7 @@ const TweetForm = () => {
       />
       {preview ? (
         <div className="h-auto w-full relative">
-          {/* <Image src={preview} fill alt="Preview" /> */}
-          <h3>Image selected</h3>
+          <Image src={preview} width={400} height={500} alt="Preview" />
         </div>
       ) : null}
       <div className="flex justify-between items-center">

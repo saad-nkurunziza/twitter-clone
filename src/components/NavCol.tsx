@@ -6,7 +6,7 @@ import { generalLinks } from "@/constants";
 
 const NavCol = () => {
   return (
-    <div className="w-[350px] flex flex-col items-center my-auto h-screen p-6 gap-y-3">
+    <div className="w-[350px] flex flex-col items-center my-auto min-h-screen p-6 gap-y-3 fixed">
       <div className="flex flex-col mt-2 gap-1">
         {generalLinks.map((link) => (
           <Link

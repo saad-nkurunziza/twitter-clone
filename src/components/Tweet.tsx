@@ -1,7 +1,7 @@
 "use client";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { format, isSameWeek, differenceInDays, parseISO } from "date-fns";
 import {
   AiOutlineMore,
@@ -11,6 +11,7 @@ import {
   AiOutlineShareAlt,
 } from "react-icons/ai";
 import { BiMessageRounded } from "react-icons/bi";
+import { handleLike } from "@/utils";
 interface TweetTypes {
   id: string;
   body: string;
@@ -19,6 +20,10 @@ interface TweetTypes {
   createdAt: Date;
 }
 const Tweet = ({ tweet }: { tweet: TweetTypes }) => {
+  const [menu, setMenu] = useState(false);
+  const showMenu = () => {
+    menu === true ? setMenu(false) : setMenu(true);
+  };
   const { id, body, image, updatedAt, createdAt } = tweet;
   const today = new Date();
   // let formattedDate;
@@ -29,7 +34,7 @@ const Tweet = ({ tweet }: { tweet: TweetTypes }) => {
   // }
 
   return (
-    <div className="px-4 py-3 border-b border-light flex gap-3">
+    <div className="px-4 py-3 border-b border-gray-600 flex gap-3">
       <article className="w-16">
         <div className="w-12 h-12 bg-black rounded-full" />
       </article>
@@ -41,15 +46,32 @@ const Tweet = ({ tweet }: { tweet: TweetTypes }) => {
               @JOHNDOE <span className="text-xs text-light">. 2d</span>
             </h5>
           </div>
-          <div>
-            <AiOutlineMore />
+          <div className="relative">
+            <div
+              className="cursor-pointer"
+              onClick={() => setMenu((prev) => (prev ? false : true))}
+            >
+              <AiOutlineMore />
+            </div>
+            {menu && (
+              <div className="flex flex-col py-2 px-3 rounded absolute bg-darkLight right-0 w-36 my-1 z-[8]">
+                <h3 className="text-sm mb-1 w-fit">Follow John Doe</h3>
+                <h3 className="text-sm mb-1 w-fit">Mute</h3>
+                <h3 className="text-sm mb-1 w-fit">Block</h3>
+              </div>
+            )}
           </div>
         </article>
         <article className="text-sm">
           <p className="leading-7 my-1">{body}</p>
         </article>
         <article className="h-fit w-full relative">
-          <Image src={`/uploads/${image}`} alt="Tweet Pic" fill />
+          <Image
+            src={`/uploads/${image}`}
+            alt="Tweet Pic"
+            width={500}
+            height={600}
+          />
         </article>
         <article className="flex justify-around items-center mt-2">
           <div className="flex gap-1 items-center text-light">
@@ -62,7 +84,7 @@ const Tweet = ({ tweet }: { tweet: TweetTypes }) => {
           </div>
           <div
             className="flex gap-1 items-center text-light"
-            // onClick={handleLike}
+            onClick={() => handleLike(id)}
           >
             <AiOutlineHeart />
             <span>9</span>

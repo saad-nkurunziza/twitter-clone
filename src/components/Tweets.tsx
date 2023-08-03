@@ -10,7 +10,7 @@ interface TweetTypes {
   createdAt: Date;
 }
 const Tweets = async () => {
-  const data = await getTweets("tweets");
+  const data = await getTweets();
   const { tweets }: { tweets: TweetTypes[] } = data;
 
   return (
